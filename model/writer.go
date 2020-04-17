@@ -70,7 +70,7 @@ func getPdfCreator() string {
 	}
 
 	// Return default.
-	return "UniDoc - http://unidoc.io"
+	return ""
 }
 
 // SetPdfCreator sets the Creator attribute of the output PDF.
@@ -103,7 +103,7 @@ func getPdfProducer() string {
 	}
 
 	// Return default.
-	return fmt.Sprintf("UniDoc v%s (%s) - http://unidoc.io", getUniDocVersion(), licenseKey.TypeToString())
+	return ""
 }
 
 // SetPdfProducer sets the Producer attribute of the output PDF.
@@ -650,8 +650,6 @@ func procPage(p *PdfPage) {
 	ops = append(ops, fmt.Sprintf("/%s 14 Tf", fontName.String()))
 	ops = append(ops, "1 0 0 rg")
 	ops = append(ops, "10 10 Td")
-	s := "Unlicensed UniDoc - Get a license on https://unidoc.io"
-	ops = append(ops, fmt.Sprintf("(%s) Tj", s))
 	ops = append(ops, "ET")
 	ops = append(ops, "Q")
 	contentstr := strings.Join(ops, "\n")

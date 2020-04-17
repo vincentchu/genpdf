@@ -69,12 +69,6 @@ func procBuf(pt *PageText) {
 	var buf bytes.Buffer
 	buf.WriteString(pt.viewText)
 
-	s := "- [Unlicensed UniDoc - Get a license on https://unidoc.io]"
-	if buf.Len() > 100 {
-		s = "... [Truncated - Unlicensed UniDoc - Get a license on https://unidoc.io]"
-		buf.Truncate(buf.Len() - 100)
-	}
-	buf.WriteString(s)
 	pt.viewText = buf.String()
 
 	if len(pt.marks) > 200 {

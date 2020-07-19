@@ -74,7 +74,7 @@ func (fa FieldAppearance) Style() AppearanceStyle {
 	// Default values returned if style not set.
 	return AppearanceStyle{
 		AutoFontSizeFraction:  0.65,
-		CheckmarkRune:         '✔',
+		CheckmarkRune:         '✕',
 		BorderSize:            0.0,
 		BorderColor:           model.NewPdfColorDeviceGray(0),
 		FillColor:             model.NewPdfColorDeviceGray(1),

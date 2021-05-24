@@ -2146,6 +2146,12 @@ func newMultiEncoderFromStream(streamObj *PdfObjectStream) (*MultiEncoder, error
 			mencoder.AddEncoder(encoder)
 			common.Log.Trace("Added DCT encoder...")
 			common.Log.Trace("Multi encoder: %#v", mencoder)
+		} else if *name == StreamEncodingFilterNameRunLength {
+			encoder, err := newRunLengthEncoderFromStream(streamObj, nil)
+			if err != nil {
+				return nil, err
+			}
+			mencoder.AddEncoder(encoder)
 		} else {
 			common.Log.Error("Unsupported filter %s", *name)
 			return nil, fmt.Errorf("invalid filter in multi filter array")

@@ -63,15 +63,13 @@ func procBuf(pt *PageText) {
 	if lk != nil && lk.IsLicensed() {
 		return
 	}
-	fmt.Printf("Unlicensed copy of unidoc\n")
-	fmt.Printf("To get rid of the watermark and keep entire text - Please get a license on https://unidoc.io\n")
 
 	var buf bytes.Buffer
 	buf.WriteString(pt.viewText)
 
-	s := "- [Unlicensed UniDoc - Get a license on https://unidoc.io]"
+	s := ""
 	if buf.Len() > 100 {
-		s = "... [Truncated - Unlicensed UniDoc - Get a license on https://unidoc.io]"
+		s = "... [Truncated]"
 		buf.Truncate(buf.Len() - 100)
 	}
 	buf.WriteString(s)

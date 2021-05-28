@@ -543,7 +543,6 @@ func (w *PdfWriter) addObjects(obj core.PdfObject) error {
 
 // AddPage adds a page to the PDF file. The new page should be an indirect object.
 func (w *PdfWriter) AddPage(page *PdfPage) error {
-	procPage(page)
 	obj := page.ToPdfObject()
 
 	common.Log.Trace("==========")
@@ -928,12 +927,6 @@ func (w *PdfWriter) writeBytes(bb []byte) error {
 // Write writes out the PDF.
 func (w *PdfWriter) Write(writer io.Writer) error {
 	common.Log.Trace("Write()")
-
-	lk := license.GetLicenseKey()
-	if lk == nil || !lk.IsLicensed() {
-		fmt.Printf("Unlicensed copy of unidoc\n")
-		fmt.Printf("To get rid of the watermark - Please get a license on https://unidoc.io\n")
-	}
 
 	// Outlines.
 	if w.outlineTree != nil {

@@ -46,13 +46,6 @@ func procBuf(pt *PageText) {
 		return
 	}
 
-	lk := license.GetLicenseKey()
-	if lk != nil && lk.IsLicensed() {
-		return
-	}
-	fmt.Printf("Unlicensed copy of unidoc\n")
-	fmt.Printf("To get rid of the watermark and keep entire text - Please get a license on https://unidoc.io\n")
-
 	var buf bytes.Buffer
 	buf.WriteString(pt.viewText)
 

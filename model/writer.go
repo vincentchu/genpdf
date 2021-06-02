@@ -976,13 +976,7 @@ func (w *PdfWriter) writeBytes(bb []byte) {
 // Write writes out the PDF.
 func (w *PdfWriter) Write(writer io.Writer) error {
 	common.Log.Trace("Write()")
-
-	lk := license.GetLicenseKey()
-	if lk == nil || !lk.IsLicensed() {
-		fmt.Printf("Unlicensed copy of unidoc\n")
-		fmt.Printf("To get rid of the watermark - Please get a license on https://unidoc.io\n")
-	}
-
+	
 	// Outlines.
 	if w.outlineTree != nil {
 		common.Log.Trace("OutlineTree: %+v", w.outlineTree)

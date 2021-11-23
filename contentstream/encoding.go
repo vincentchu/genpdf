@@ -68,13 +68,13 @@ func newEncoderFromInlineImage(inlineImage *ContentStreamInlineImage) (core.Stre
 		return newFlateEncoderFromInlineImage(inlineImage, nil)
 	case "LZW", "LZWDecode":
 		return newLZWEncoderFromInlineImage(inlineImage, nil)
-	case "CCF", "CCITTFaxDecode":
-		return core.NewCCITTFaxEncoder(), nil
+	// case "CCF", "CCITTFaxDecode":
+	// 	return core.NewCCITTFaxEncoder(), nil
 	case "RL", "RunLengthDecode":
 		return core.NewRunLengthEncoder(), nil
 	default:
 		common.Log.Debug("Unsupported inline image encoding filter name : %s", *filterName)
-		return nil, errors.New("unsupported inline encoding method")
+		return nil, fmt.Errorf("unsupported inline encoding method (%s)", *filterName)
 	}
 }
 

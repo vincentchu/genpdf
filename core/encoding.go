@@ -2154,7 +2154,7 @@ func newMultiEncoderFromStream(streamObj *PdfObjectStream) (*MultiEncoder, error
 			mencoder.AddEncoder(encoder)
 		} else {
 			common.Log.Error("Unsupported filter %s", *name)
-			return nil, fmt.Errorf("invalid filter in multi filter array")
+			return nil, fmt.Errorf("invalid filter in multi filter array: %s", *name)
 		}
 	}
 

@@ -59,6 +59,8 @@ type ImageMark struct {
 
 	// Angle in degrees, if rotated.
 	Angle float64
+
+	Transform [9]float64
 }
 
 // Provide context for image extraction content stream processing.
@@ -159,10 +161,11 @@ func (ctx *imageExtractContext) extractInlineImage(iimg *contentstream.ContentSt
 	}
 
 	imgMark := ImageMark{
-		Image:  &rgbImg,
-		Width:  gs.CTM.ScalingFactorX(),
-		Height: gs.CTM.ScalingFactorY(),
-		Angle:  gs.CTM.Angle(),
+		Image:     &rgbImg,
+		Width:     gs.CTM.ScalingFactorX(),
+		Height:    gs.CTM.ScalingFactorY(),
+		Angle:     gs.CTM.Angle(),
+		Transform: gs.CTM,
 	}
 	imgMark.X, imgMark.Y = gs.CTM.Translation()
 
@@ -209,10 +212,11 @@ func (ctx *imageExtractContext) extractXObjectImage(name *core.PdfObjectName, gs
 
 	common.Log.Debug("@Do CTM: %s", gs.CTM.String())
 	imgMark := ImageMark{
-		Image:  &rgbImg,
-		Width:  gs.CTM.ScalingFactorX(),
-		Height: gs.CTM.ScalingFactorY(),
-		Angle:  gs.CTM.Angle(),
+		Image:     &rgbImg,
+		Width:     gs.CTM.ScalingFactorX(),
+		Height:    gs.CTM.ScalingFactorY(),
+		Angle:     gs.CTM.Angle(),
+		Transform: gs.CTM,
 	}
 	imgMark.X, imgMark.Y = gs.CTM.Translation()
 

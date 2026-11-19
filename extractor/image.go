@@ -16,6 +16,13 @@ import (
 // PDF pages.
 type ImageExtractOptions struct {
 	IncludeInlineStencilMasks bool
+
+	// ExcludeXObjectStencilMasks skips image XObjects with /ImageMask true before
+	// they are decoded. A stencil mask is a 1-bit mask that paints the current fill
+	// color, so it holds no picture of its own. Scanned text layers are often stored
+	// this way, and decoding them to RGB can need a lot of memory.
+	// The default (false) keeps the earlier behavior: such XObjects are extracted.
+	ExcludeXObjectStencilMasks bool
 }
 
 // ExtractPageImages returns the image contents of the page extractor, including data
@@ -178,6 +185,12 @@ func (ctx *imageExtractContext) extractXObjectImage(name *core.PdfObjectName, gs
 	stream, _ := resources.GetXObjectByName(*name)
 	if stream == nil {
 		return nil
+	}
+
+	if ctx.options.ExcludeXObjectStencilMasks {
+		if isImageMask, ok := core.GetBoolVal(stream.Get("ImageMask")); ok && isImageMask {
+			return nil
+		}
 	}
 
 	// Cache on stream pointer so can ensure that it is the same object (better than using name).
